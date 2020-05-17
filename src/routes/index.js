@@ -31,8 +31,12 @@ router.get('/contact', (req, res) => {
   res.render('contact', { title: 'Contact Page' });
 });
 
+router.get('/about', (req, res) => {
+  res.render('about', { title: 'Acerca de' });
+});
+
 router.get('/login', (req, res) => {
-  res.render('login', { title: 'Acerca de' });
+  res.render('login', { title: 'Inicio de sesión' });
 });
 
 router.get('/login', (req, res) => {
