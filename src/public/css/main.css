@@ -22,8 +22,17 @@ header img {
 	background-attachment: fixed;
 }
 
+.icon{
+	min-width: 50px;
+	font-size: 22px;
+	text-align: center;
+	color: gray;
+}
+
 input[type="text"],
-input[type="password"]{
+input[type="password"],
+input[type="date"],
+input[type="number"]{
 	font-size: 20px;
 	width: 82%;
 	padding: 10px;

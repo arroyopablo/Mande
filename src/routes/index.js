@@ -1,30 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const {Client} = require('pg')
+const { client } = require('./dbConfig');
 
 
-const connectionData = {
-  user: 'postgres',
-  host: 'localhost',
-  database: 'DS1_BaseDeDatos',
-  password: 'cjloco1996',
-  port: 5432,
-}
+router.use(express.urlencoded({extended: false}));
 
-const client = new Client(connectionData)
-
-client.connect()
-client.query('SELECT nombre_persona FROM usuarios')
-    .then(response => {
-        console.log(response.rows)
-        client.end()
-    })
-    .catch(err => {
-        client.end()
-    })
 
 router.get('/', (req, res) => {
-  res.render('index', { title: 'First Web Node' });
+  res.render('index', { title: 'Mande' });
 });
 
 router.get('/contact', (req, res) => {
@@ -45,6 +28,16 @@ router.get('/login', (req, res) => {
 
 router.get('/registro', (req, res) => {
   res.render('registro', { title: 'Registro de usuario' });
+});
+
+router.post('/registro', (req, res) => {
+  let{celular, nombre} = req.body;
+
+  console.log({
+    celular, nombre
+  });
+
+
 });
 
 module.exports = router;
