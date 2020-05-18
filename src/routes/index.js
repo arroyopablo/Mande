@@ -43,16 +43,22 @@ router.get('/login', (req, res) => {
   res.render('login', { title: 'Inicio de sesión' });
 });
 
-router.get('/login', (req, res) => {
+router.get('/login', checkAuthenticated, (req, res) => {
   res.render('login', { title: 'Inicio de sesión' });
 });
 
-router.get('/registro', (req, res) => {
+router.get('/registro', checkAuthenticated, (req, res) => {
   res.render('registro', { title: 'Registro de usuario' });
 });
 
-router.get("/dashboard", (req, res) => {
+router.get("/dashboard", checkNotAuthenticated, (req, res) => {
   res.render("dashboard", { user: req.user.nombre_cliente });
+});
+
+router.get("/logout", (req, res) => {
+  req.logOut();
+  req.flash("success_msg", "Has cerrado sesión");
+  res.redirect("/login");
 });
 
 router.post('/registro',async (req, res) => {
@@ -126,5 +132,19 @@ router.post(
     failureFlash: true
   })
 );
+
+function checkAuthenticated(req, res, next){
+  if (req.isAuthenticated()){
+    return res.redirect("/dashboard");
+  }
+  next();
+}
+
+function checkNotAuthenticated(req, res, next){
+  if (req.isAuthenticated()){
+    return next();
+  }
+  res.redirect("/login");
+}
 
 module.exports = router;

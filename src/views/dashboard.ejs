@@ -1,20 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css"
-    />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta charset="UTF-8" />    
     <title>Dashboard</title>
+    <% include partials/head %>
   </head>
   <body>
-    <h1>Dashboard</h1>
+    <% include partials/navigation %>
+    <h1 class="text-center ">Dashboard</h1>
+    
+    <a href="/logout">Cerrar sesión</a>
 
-    <a href="/logout">Logout</a>
-
-    <h4>Hello <%= user %></h4>
+    <h4>Bienvenido <%= user.charAt(0).toUpperCase() + user.slice(1) %></h4>
   </body>
 </html>
