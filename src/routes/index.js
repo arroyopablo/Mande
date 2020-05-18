@@ -2,9 +2,30 @@ const express = require('express');
 const router = express.Router();
 const { client } = require('./dbConfig');
 const bcrypt = require("bcrypt");
+const session = require('express-session');
+const flash = require('express-flash');
+const passport = require('passport');
+
+const initializePassport = require('./passportConfig');
+
+initializePassport(passport);
 
 router.use(express.urlencoded({extended: false}));
 
+router.use
+  (session({
+    secret: 'secret',
+
+    resave: false,
+
+    saveUninitialized: false
+  })
+);
+
+router.use(passport.initialize());
+router.use(passport.session());
+
+router.use(flash())
 
 router.get('/', (req, res) => {
   res.render('index', { title: 'Mande' });
@@ -28,6 +49,10 @@ router.get('/login', (req, res) => {
 
 router.get('/registro', (req, res) => {
   res.render('registro', { title: 'Registro de usuario' });
+});
+
+router.get("/dashboard", (req, res) => {
+  res.render("dashboard", { user: req.user.nombre_cliente });
 });
 
 router.post('/registro',async (req, res) => {
@@ -59,20 +84,47 @@ router.post('/registro',async (req, res) => {
     //encriptar contraseña
     let hashedContrasena= await bcrypt.hash(contrasena, 10);
     console.log(hashedContrasena);
-
+    client.connect()
     client.query(
       `SELECT * FROM cliente
-        WHERE password_cliente = $1`,
-      [contrasena],
+        WHERE cc_cliente = $1 or celular_cliente = $2`,
+      [cedula, celular],
       (err, results) => {
         if (err) {
           console.log(err);
         }
         console.log(results.rows);
+
+        if(results.rows.length > 0){
+          errors.push({message: "El usuario ya se encuentra registrado, prueba con una cédula o celular diferente"});
+          res.render("registro", {errors});
+        }else{
+          client.query(
+            `INSERT INTO cliente VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+            RETURNING cc_cliente`, 
+            [celular, nombre, apellido, direccion, nacimiento, latitud, longitud, email, cedula, hashedContrasena],
+            (err, results) => {
+              if (err) {
+                throw err;
+              }
+              console.log(results.rows);
+              req.flash("success_msg", "Se ha registrado exitosamente, por favor ínicia sesión");
+              res.redirect('/login');
+            }
+          );
+        }
       }
-    );
-    console.log('aqui');
+    ); 
   }
 });
+
+router.post(
+  "/login",
+  passport.authenticate("local", {
+    successRedirect: "/dashboard",
+    failureRedirect: "/login",
+    failureFlash: true
+  })
+);
 
 module.exports = router;

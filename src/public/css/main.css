@@ -62,6 +62,14 @@ input[type="number"]{
 	margin-top: 50px;
 }
 
+.mensaje_exito{
+	color: yellow;
+	font-size: 20px;
+	font-weight: bold;
+	background-color: black;
+	margin-top: 50px;
+}
+
 .link{
 	text-decoration: none;
 	color: #009FFF; 
