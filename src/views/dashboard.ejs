@@ -6,10 +6,8 @@
     <% include partials/head %>
   </head>
   <body>
-    <% include partials/navigation %>
+    <% include partials/navigation_dashboard %>
     <h1 class="text-center ">Dashboard</h1>
-    
-    <a href="/logout">Cerrar sesión</a>
 
     <h4>Bienvenido <%= user.charAt(0).toUpperCase() + user.slice(1) %></h4>
   </body>
