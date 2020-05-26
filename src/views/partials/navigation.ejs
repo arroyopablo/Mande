@@ -7,20 +7,25 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item active">
+        <li class="nav-item">
           <a class="nav-link" href="/"><i class="fas fa-home"></i> Inicio</a>
         </li>
-        <li class="nav-item active">
+        <li class="nav-item">
           <a class="nav-link" href="/about"><i class="fas fa-building"></i> Acerca de</a>
         </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="/contact"><i class="fas fa-envelope"></i> Contactanos</a>
+        <li class="nav-item active dropdown">
+          <a class="nav-link" >Iniciar Sesión</a>
+          <div class="dropdown-content bg-dark">
+            <a class="nav-link" href="/login">Usuario</a>
+            <a class="nav-link" href="/loginTrabajador">Trabajador</a>
+          </div>
         </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="/login"><i class="fa fa-user"></i> Iniciar sesión</a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="/registro"> Registrarse</a>
+        <li class="nav-item active dropdown">
+          <a class="nav-link"> Registrarse</a>
+          <div class="dropdown-content bg-dark">
+            <a class="nav-link" href="/registro">Usuario</a>
+            <a class="nav-link" href="/registroTrabajador">Trabajdor</a>
+          </div>
         </li>
       </ul>
     </div>

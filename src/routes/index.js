@@ -39,16 +39,21 @@ router.get('/about', (req, res) => {
   res.render('about', { title: 'Acerca de' });
 });
 
-router.get('/login', (req, res) => {
-  res.render('login', { title: 'Inicio de sesión' });
-});
 
 router.get('/login', checkAuthenticated, (req, res) => {
   res.render('login', { title: 'Inicio de sesión' });
 });
 
+router.get('/loginTrabajador', checkAuthenticated, (req, res) => {
+  res.render('loginTrabajador', { title: 'Inicio de sesión' });
+});
+
 router.get('/registro', checkAuthenticated, (req, res) => {
   res.render('registro', { title: 'Registro de usuario' });
+});
+
+router.get('/registroTrabajador', checkAuthenticated, (req, res) => {
+  res.render('registroTrabajador', { title: 'Registro de Trabajador' });
 });
 
 router.get("/dashboard", checkNotAuthenticated, (req, res) => {
