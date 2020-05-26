@@ -5,3 +5,5 @@ _Mande, es un emprendimiento que permite, desde el celular, conseguir personas t
 ## Comenzando 🚀 
 _Producto en desarrollo_
 ### Instalación 🔧
+_1. npm install_
+_2. npm run dev_
